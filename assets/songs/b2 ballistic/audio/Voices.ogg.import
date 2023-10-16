@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://sy28edtxe4d2"
+path="res://.godot/imported/Voices.ogg-e119150ea89f1890d883c7fc60c9a3cd.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/songs/b2 ballistic/audio/Voices.ogg"
+dest_files=["res://.godot/imported/Voices.ogg-e119150ea89f1890d883c7fc60c9a3cd.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

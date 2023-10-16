@@ -1,0 +1,96 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpnjxk8hbgtqd"]
+
+[ext_resource type="Script" path="res://scenes/game/PauseMenu.gd" id="1_876i5"]
+[ext_resource type="PackedScene" uid="uid://dlv0pyhvf7egt" path="res://scenes/pause/SongList.tscn" id="2_okn31"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ve880"]
+bg_color = Color(0.113725, 0.113725, 0.113725, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qoi7t"]
+bg_color = Color(0.207843, 0.207843, 0.207843, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 5
+
+[node name="PauseMenu" type="ColorRect"]
+process_mode = 3
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 0.501961)
+script = ExtResource("1_876i5")
+
+[node name="Icon" type="Line2D" parent="."]
+position = Vector2(1800, 200)
+rotation = 7.85398
+points = PackedVector2Array(-112, -125, -112, 125, 112, 0, -112, -125)
+default_color = Color(0.862745, 0.862745, 0.862745, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 891.5
+offset_top = 165.0
+offset_right = 1060.5
+offset_bottom = 235.0
+theme_override_font_sizes/font_size = 48
+text = "Paused"
+
+[node name="Resume" type="Button" parent="."]
+layout_mode = 0
+offset_left = 850.0
+offset_top = 415.0
+offset_right = 1100.0
+offset_bottom = 473.0
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_ve880")
+theme_override_styles/hover = SubResource("StyleBoxFlat_qoi7t")
+text = "Resume"
+
+[node name="Songs" type="Button" parent="."]
+layout_mode = 0
+offset_left = 850.0
+offset_top = 495.0
+offset_right = 1100.0
+offset_bottom = 553.0
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_ve880")
+theme_override_styles/hover = SubResource("StyleBoxFlat_qoi7t")
+text = "Song List"
+
+[node name="Options" type="Button" parent="."]
+layout_mode = 0
+offset_left = 850.0
+offset_top = 575.0
+offset_right = 1100.0
+offset_bottom = 633.0
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_ve880")
+theme_override_styles/hover = SubResource("StyleBoxFlat_qoi7t")
+text = "Options"
+
+[node name="SongList" parent="." instance=ExtResource("2_okn31")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Songs" to="." method="_on_songs_pressed"]
+[connection signal="pressed" from="Options" to="." method="_on_options_pressed"]

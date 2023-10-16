@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgvwq55d1jn1a"]
+
+[ext_resource type="Texture2D" uid="uid://buvfn2on5ep6l" path="res://assets/images/game/arrow.png" id="1_5ojbt"]
+[ext_resource type="Script" path="res://scripts/objects/Note.gd" id="2_tjs0d"]
+[ext_resource type="Texture2D" uid="uid://xsivwrfsr4a0" path="res://assets/images/game/hold.png" id="2_u6q57"]
+[ext_resource type="Texture2D" uid="uid://c0mndi2dfxsuq" path="res://assets/images/game/tail.png" id="3_lptxd"]
+
+[node name="Note" type="Node2D"]
+scale = Vector2(0.7, 0.7)
+script = ExtResource("2_tjs0d")
+
+[node name="HoldRect" type="Control" parent="."]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_right = 75.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(75, 0)
+
+[node name="Hold" type="Control" parent="HoldRect"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 75.0
+offset_bottom = -0.0299988
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HoldTex" type="TextureRect" parent="HoldRect/Hold"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(75, 0)
+texture = ExtResource("2_u6q57")
+stretch_mode = 1
+
+[node name="Tail" type="TextureRect" parent="HoldRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_right = 75.0
+offset_bottom = 75.0
+grow_horizontal = 2
+pivot_offset = Vector2(75, 0)
+texture = ExtResource("3_lptxd")
+stretch_mode = 2
+flip_v = true
+
+[node name="Note" type="Sprite2D" parent="."]
+texture = ExtResource("1_5ojbt")

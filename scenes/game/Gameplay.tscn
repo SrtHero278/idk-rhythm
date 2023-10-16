@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxk7cxxoms1pn"]
+
+[ext_resource type="Script" path="res://scenes/game/Gameplay.gd" id="1_1vbvm"]
+[ext_resource type="PackedScene" uid="uid://5kgq8m1k5qkm" path="res://scripts/objects/StrumLine.tscn" id="1_om2o8"]
+
+[sub_resource type="Gradient" id="Gradient_kpyja"]
+interpolation_color_space = 1
+offsets = PackedFloat32Array(0, 0.3, 0.35, 1)
+colors = PackedColorArray(1, 0.466667, 0, 1, 1, 0.466667, 0, 1, 0, 1, 0.576471, 1, 0, 1, 0.576471, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_col26"]
+bg_color = Color(0.141176, 0.141176, 0.141176, 1)
+border_width_left = 5
+border_width_right = 5
+border_color = Color(0, 0.8, 0.8, 1)
+
+[node name="Gameplay" type="Node2D"]
+script = ExtResource("1_1vbvm")
+ms_gradient = SubResource("Gradient_kpyja")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 420.0
+offset_right = 860.0
+offset_bottom = 720.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_col26")
+
+[node name="StrumLine" parent="." instance=ExtResource("1_om2o8")]
+position = Vector2(640, 650)
+
+[node name="Tracks" type="Node" parent="."]
+
+[node name="HitInfo" type="Label" parent="."]
+offset_left = 425.0
+offset_top = 311.0
+offset_right = 855.0
+offset_bottom = 385.0
+pivot_offset = Vector2(215, 37)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 24
+text = "Get Ready!"
+horizontal_alignment = 1
+
+[node name="AnchorWorkaround" type="Node2D" parent="."]
+position = Vector2(5, 716)
+
+[node name="ScoreInfo" type="Label" parent="AnchorWorkaround"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -104.0
+offset_right = 120.0
+grow_vertical = 0
+theme_override_constants/outline_size = 2
+text = "Score: 0
+Misses: 0
+Accuracy: 100%
+Average MS: 0"
+vertical_alignment = 2
+
+[connection signal="note_hit" from="StrumLine" to="." method="_note_hit"]
+[connection signal="note_miss" from="StrumLine" to="." method="_note_miss"]

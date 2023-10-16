@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bfpwg2o21bes4"
+path="res://.godot/imported/SENSORY OVERLOAD.ogg-7b35652d2ba94835c90a14fdaa3d0c91.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/songs/sensory overload/audio/SENSORY OVERLOAD.ogg"
+dest_files=["res://.godot/imported/SENSORY OVERLOAD.ogg-7b35652d2ba94835c90a14fdaa3d0c91.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

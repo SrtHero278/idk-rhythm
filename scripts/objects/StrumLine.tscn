@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://5kgq8m1k5qkm"]
+
+[ext_resource type="Texture2D" uid="uid://buvfn2on5ep6l" path="res://assets/images/game/arrow.png" id="1_cfbe7"]
+[ext_resource type="Script" path="res://scripts/objects/StrumLine.gd" id="1_cvhsy"]
+
+[node name="StrumLine" type="Node2D"]
+script = ExtResource("1_cvhsy")
+
+[node name="Left" type="Sprite2D" parent="."]
+position = Vector2(-160, 0)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_cfbe7")
+
+[node name="Down" type="Sprite2D" parent="."]
+position = Vector2(-54, 0)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_cfbe7")
+
+[node name="Up" type="Sprite2D" parent="."]
+position = Vector2(54, 0)
+rotation = 1.5708
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_cfbe7")
+
+[node name="Right" type="Sprite2D" parent="."]
+position = Vector2(160, 0)
+rotation = 3.14159
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_cfbe7")
+
+[node name="Notes" type="CanvasGroup" parent="."]
+
+[node name="HeldNotes" type="CanvasGroup" parent="."]

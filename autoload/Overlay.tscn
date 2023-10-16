@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpwr1ct84je4j"]
+
+[ext_resource type="Script" path="res://autoload/Overlay.gd" id="1_yk7t2"]
+[ext_resource type="Texture2D" uid="uid://bqmcx6sade8ad" path="res://assets/images/vol-sheet.png" id="2_mvyim"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x8pnt"]
+bg_color = Color(0, 0, 0, 0.5)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+anti_aliasing = false
+
+[node name="Overlay" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_yk7t2")
+
+[node name="VolLabel" type="Label" parent="."]
+offset_left = 5.0
+offset_top = 36.0
+offset_right = 76.0
+offset_bottom = 62.0
+text = "      100% "
+
+[node name="VolSheet" type="Sprite2D" parent="VolLabel"]
+position = Vector2(13, 12)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_mvyim")
+hframes = 2
+frame = 1
+
+[node name="VolPanel" type="Panel" parent="VolLabel"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_x8pnt")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 10.0
+offset_bottom = 28.0
+text = " 60 FPS "
+
+[node name="Panel" type="Panel" parent="Label"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_x8pnt")

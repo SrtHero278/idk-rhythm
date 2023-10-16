@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlv0pyhvf7egt"]
+
+[ext_resource type="Script" path="res://scenes/pause/SongList.gd" id="1_gt2ad"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lg4w5"]
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 5
+
+[node name="SongList" type="Panel"]
+offset_left = 75.0
+offset_top = 30.0
+offset_right = 650.0
+offset_bottom = 690.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lg4w5")
+script = ExtResource("1_gt2ad")
+
+[node name="WaitingLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 114.0
+offset_top = 304.0
+offset_right = 457.0
+offset_bottom = 357.0
+theme_override_font_sizes/font_size = 36
+text = "Give us a moment..."
+
+[node name="Container" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+grow_horizontal = 2
+
+[node name="Tracks" type="Node" parent="."]
