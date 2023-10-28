@@ -4,6 +4,7 @@ static var charts:Dictionary = {}
 static var cur_chart:Chart = null
 static var bpm_changes:Array[Array] = []
 
+static var queued_holds:Array[Chart.ChartNote] = [null, null, null, null]
 static var queued_note_lines:Array[String] = []
 static var note_line_count:int = -1
 static var cur_type = "<NONE>"
@@ -86,7 +87,14 @@ static func parse_line(line:String):
 						match(queued_note_lines[i][l]):
 							"1":
 								cur_chart.notes.append(Chart.ChartNote.new(cur_time + quant_offset, l, 0.0, last_change[1], last_change[2]))
-
+							"2":
+								queued_holds[l] = Chart.ChartNote.new(cur_time + quant_offset, l, 0.0, last_change[1], last_change[2])
+								cur_chart.notes.append(queued_holds[l])
+							"3":
+								if queued_holds[l] != null:
+									queued_holds[l].length = (cur_time - queued_holds[l].time)
+									queued_holds[l] = null
+								
 					cur_time += last_change[1] * beat_inc
 					for b in range(change_index, bpm_changes.size()):
 						if bpm_changes[b][2] >= cur_time:

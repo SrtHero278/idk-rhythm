@@ -85,6 +85,7 @@ offset_bottom = 633.0
 theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = SubResource("StyleBoxFlat_ve880")
 theme_override_styles/hover = SubResource("StyleBoxFlat_qoi7t")
+disabled = true
 text = "Options"
 
 [node name="SongList" parent="." instance=ExtResource("2_okn31")]
