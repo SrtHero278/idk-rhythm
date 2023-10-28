@@ -6,6 +6,7 @@ extends Panel
 
 var cur_song:String
 var song_diffs:Dictionary = {}
+var stepmania_list:Dictionary = {}
 
 func _ready():
 	var thread = Thread.new()
@@ -43,12 +44,34 @@ func load_songs():
 		popup.set_item_as_separator(0, true)
 		
 		for diff in meta.difficulties:
-			popup.add_radio_check_item(diff)
+			add_diff(popup, folder, diff)
 		
 		funny_button.selected = 0
 		container.call_deferred("add_child", funny_button)
 	wait_txt.queue_free()
 	return true;
+
+func add_diff(popup:PopupMenu, song:String, diff:String):
+	if diff == "<STEPMANIA>":
+		stepmania_list[song] = SmParser.parse_sm("res://assets/songs/%s/%s.sm" % [song, song], "<ALL>")
+		
+		var new_popup = PopupMenu.new()
+		for key in stepmania_list[song].keys():
+			var data = stepmania_list[song][key].extra_data
+			new_popup.add_radio_check_item("%s - %s (%s)" % [data["SM_Steps"], data["SM_DiffType"], data["SM_DiffRating"]])
+		new_popup.name = "stepmania"
+		popup.add_child(new_popup)
+		new_popup.id_pressed.connect(select_sm)
+		
+		popup.add_submenu_item("Stepmania Diffs", "stepmania")
+	else:
+		popup.add_radio_check_item(diff)
+
+func select_sm(id:int):
+	get_tree().paused = false
+	Gameplay.chart = stepmania_list[cur_song][stepmania_list[cur_song].keys()[id]]
+	Gameplay.song_folder = cur_song
+	get_tree().change_scene_to_file("res://scenes/game/Gameplay.tscn")
 
 func select_song(id:int):
 	get_tree().paused = false

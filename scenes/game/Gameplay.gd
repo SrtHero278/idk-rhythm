@@ -22,6 +22,7 @@ var passed_notes:int = 0
 func _ready():
 	Conductor.bpm = chart.bpm
 	Conductor.crochet = 60 / chart.bpm
+	Conductor.quant_offset = chart.song_offset
 
 	Conductor.cur_pos = -Conductor.crochet
 	await get_tree().create_timer(Conductor.crochet).timeout

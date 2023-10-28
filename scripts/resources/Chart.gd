@@ -14,6 +14,8 @@ class ChartNote extends Resource:
 		self.crochet = _crochet
 		self.last_change = _last
 
+var extra_data:Dictionary = {}
+
 var bpm:float = 120
 var bpm_changes:Array[Array] = []
 
@@ -26,16 +28,22 @@ func _init(_bpm:float):
 	self.bpm = _bpm
 
 static func parse_chart(song:String, diff:String):
-	var da_chart
-	var fnf_path = "res://assets/songs/%s/%s.json" % [song, diff.to_lower()]
-	if ResourceLoader.exists(fnf_path):
-		da_chart = parse_fnf(fnf_path)
-	else:
+	var da_chart = null
+	
+	var file_formats = [
+		["res://assets/songs/%s/%s.json" % [song, diff.to_lower()], 	Chart.parse_fnf],
+		["res://assets/songs/%s/%s.sm" % [song, song], 					SmParser.parse_sm]
+	]
+	for path in file_formats:
+		if ResourceLoader.exists(path[0]):
+			da_chart = path[1].call(path[0], diff)
+	
+	if da_chart == null:
 		da_chart = Chart.new(120) # fallback
 					
 	return da_chart
 
-static func parse_fnf(path:String):
+static func parse_fnf(path:String, _diff):
 	var json = load(path).data.song
 	var chart = Chart.new(json.bpm)
 	chart.speed = json.speed
@@ -66,7 +74,6 @@ static func parse_fnf(path:String):
 		
 	chart.notes.sort_custom(func(a, b): return a.time < b.time)
 	return chart
-
 
 static func get_tracks(song:String):
 	var tracks:Array[AudioStreamPlayer] = []
