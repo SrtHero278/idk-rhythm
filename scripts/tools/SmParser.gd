@@ -16,8 +16,6 @@ static var last_beat:float = 0.0
 static var change_index:int = 0
 static var first_change:Array = [120.0, 0.5, 0.0, 0.0]
 static var last_change:Array = [120.0, 0.5, 0.0, 0.0]
-#static var first_change:Array[float] = [170.0, (60.0 / 170.0), 0.0, 0.0]
-#static var last_change:Array[float] = [170.0, (60.0 / 170.0), 0.0, 0.0]
 
 static func parse_sm(path:String, diff:String):
 	charts = {}
@@ -81,7 +79,7 @@ static func parse_line(line:String):
 			note_line_count += 1
 		"NOTE_QUEUE":
 			if line[0] == "," or line[0] == ";":
-				var beat_inc:float = 4 / float(note_line_count);
+				var beat_inc:float = 4.0 / note_line_count;
 				for i in note_line_count:
 					for l in 4:
 						match(queued_note_lines[i][l]):
