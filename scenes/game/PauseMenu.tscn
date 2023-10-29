@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpnjxk8hbgtqd"]
+[gd_scene load_steps=6 format=3 uid="uid://dpnjxk8hbgtqd"]
 
 [ext_resource type="Script" path="res://scenes/game/PauseMenu.gd" id="1_876i5"]
 [ext_resource type="PackedScene" uid="uid://dlv0pyhvf7egt" path="res://scenes/pause/SongList.tscn" id="2_okn31"]
+[ext_resource type="PackedScene" uid="uid://omd8fakcrcu8" path="res://scenes/pause/OptionList.tscn" id="3_2bvij"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ve880"]
 bg_color = Color(0.113725, 0.113725, 0.113725, 1)
@@ -60,6 +61,7 @@ offset_left = 850.0
 offset_top = 415.0
 offset_right = 1100.0
 offset_bottom = 473.0
+focus_mode = 1
 theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = SubResource("StyleBoxFlat_ve880")
 theme_override_styles/hover = SubResource("StyleBoxFlat_qoi7t")
@@ -71,6 +73,7 @@ offset_left = 850.0
 offset_top = 495.0
 offset_right = 1100.0
 offset_bottom = 553.0
+focus_mode = 1
 theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = SubResource("StyleBoxFlat_ve880")
 theme_override_styles/hover = SubResource("StyleBoxFlat_qoi7t")
@@ -82,13 +85,16 @@ offset_left = 850.0
 offset_top = 575.0
 offset_right = 1100.0
 offset_bottom = 633.0
+focus_mode = 1
 theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = SubResource("StyleBoxFlat_ve880")
 theme_override_styles/hover = SubResource("StyleBoxFlat_qoi7t")
-disabled = true
 text = "Options"
 
 [node name="SongList" parent="." instance=ExtResource("2_okn31")]
+layout_mode = 1
+
+[node name="OptionList" parent="." instance=ExtResource("3_2bvij")]
 visible = false
 layout_mode = 1
 

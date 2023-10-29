@@ -1,6 +1,7 @@
 extends ColorRect
 
 @onready var song_list = $SongList
+@onready var option_list = $OptionList
 
 @onready var label = $Label
 @onready var resume = $Resume
@@ -28,6 +29,8 @@ func finish_resume():
 
 func _on_songs_pressed():
 	song_list.visible = true
+	option_list.visible = false
 
 func _on_options_pressed():
 	song_list.visible = false
+	option_list.visible = true

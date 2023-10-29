@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 Overlay="*res://autoload/Overlay.tscn"
 Conductor="*res://autoload/Conductor.gd"
+Config="*res://autoload/Config.gd"
 
 [display]
 

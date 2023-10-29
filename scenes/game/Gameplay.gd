@@ -27,7 +27,7 @@ func _ready():
 	Conductor.cur_pos = -Conductor.crochet
 	await get_tree().create_timer(Conductor.crochet).timeout
 
-	strum_line.speed = chart.speed
+	strum_line.speed = Config.get_opt("scroll", 2.5) if Config.get_opt("force_scroll", false) else chart.speed
 	for track in Chart.get_tracks(song_folder):
 		tracks.add_child(track)
 		track.play()
@@ -72,7 +72,7 @@ func _note_hit(note):
 	
 	ms *= 0.001
 	var score_mult = 1 - abs(ms / strum_line.hit_window)
-	score += 350 * score_mult + floori(5 * (combo / 20))
+	score += 350 * score_mult + floori(5 * (combo / 20.0))
 	update_score()
 	
 	hit_info.modulate = ms_gradient.sample(score_mult)

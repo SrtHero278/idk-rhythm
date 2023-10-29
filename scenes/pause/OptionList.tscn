@@ -1,0 +1,109 @@
+[gd_scene load_steps=5 format=3 uid="uid://omd8fakcrcu8"]
+
+[ext_resource type="Script" path="res://scenes/pause/OptionList.gd" id="1_qh5r0"]
+[ext_resource type="Script" path="res://scripts/objects/options/CheckboxOpt.gd" id="2_hqf7u"]
+[ext_resource type="Script" path="res://scripts/objects/options/KeybindOpt.gd" id="2_up7uo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lg4w5"]
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 5
+
+[node name="OptionList" type="Panel"]
+offset_left = 75.0
+offset_top = 30.0
+offset_right = 650.0
+offset_bottom = 690.0
+focus_mode = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_lg4w5")
+script = ExtResource("1_qh5r0")
+
+[node name="Container" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 6.0
+offset_right = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Gameplay" type="Label" parent="Container/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Gameplay"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="Container/VBoxContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+
+[node name="ScrollCheck" type="CheckButton" parent="Container/VBoxContainer"]
+layout_mode = 2
+focus_mode = 1
+text = "Force Scroll Speed (1.00)"
+script = ExtResource("2_hqf7u")
+option_name = "force_scroll"
+
+[node name="ScrollSpeed" type="HSlider" parent="Container/VBoxContainer"]
+layout_mode = 2
+focus_mode = 1
+min_value = 1.0
+max_value = 7.0
+step = 0.25
+value = 1.0
+
+[node name="Keybinds" type="Label" parent="Container/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Keybinds"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Container/VBoxContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+
+[node name="LeftKeybind" type="Button" parent="Container/VBoxContainer"]
+layout_mode = 2
+focus_mode = 1
+text = "Left Keybinds: "
+script = ExtResource("2_up7uo")
+
+[node name="DownKeybind" type="Button" parent="Container/VBoxContainer"]
+layout_mode = 2
+focus_mode = 1
+text = "Down Keybinds: "
+script = ExtResource("2_up7uo")
+option_name = "note_down"
+default_value = Array[String](["S", "Down"])
+
+[node name="UpKeybind" type="Button" parent="Container/VBoxContainer"]
+layout_mode = 2
+focus_mode = 1
+text = "Up Keybinds: "
+script = ExtResource("2_up7uo")
+option_name = "note_up"
+default_value = Array[String](["Kp 5", "Up"])
+
+[node name="RightKeybind" type="Button" parent="Container/VBoxContainer"]
+layout_mode = 2
+focus_mode = 1
+text = "Right Keybinds: "
+script = ExtResource("2_up7uo")
+option_name = "note_right"
+default_value = Array[String](["Kp 6", "Right"])
+
+[connection signal="value_changed" from="Container/VBoxContainer/ScrollSpeed" to="." method="_scroll_changed"]

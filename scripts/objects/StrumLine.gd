@@ -40,8 +40,12 @@ func _process(delta):
 			note_miss.emit(note)
 			note.queue_free()
 			
+	var sin_mult = sin(fmod(Conductor.float_beat, 1.0) * PI) * 0.35 + 0.35
 	for note in held_notes.get_children():
 		note = note as Note
+		
+		note.note.modulate.a = sin_mult
+		
 		note.sustain_length -= delta
 		if note.sustain_length <= 0:
 			note.queue_free()
@@ -73,6 +77,8 @@ func press(index:int):
 			else:
 				notes.remove_child(note)
 				held_notes.add_child(note)
+				note.sustain_length += note.hit_time - Conductor.cur_pos
+				note.resize_sustain(note.sustain_length, speed)
 				note.position.y = 0
 			break
 	
