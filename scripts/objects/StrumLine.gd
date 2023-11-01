@@ -5,7 +5,13 @@ extends Node2D
 var temp_note = load("res://scripts/objects/Note.tscn").instantiate()
 
 var hit_window:float = 0.15
-var speed:float = 2.7
+var speed:float = 2.7:
+	get: return speed
+	set(new_speed):
+		for note in notes.get_children():
+			if note.sustain_length > 0.0:
+				note.resize_sustain(note.sustain_length, new_speed)
+		speed = new_speed
 
 var actions:Array[String] = ["note_left", "note_down", "note_up", "note_right"]
 

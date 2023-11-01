@@ -12,7 +12,6 @@ static var cur_type = "<NONE>"
 static var cur_bpm = 120
 static var quant_offset:float = 0.0
 static var cur_time:float = 0.0
-static var last_beat:float = 0.0
 static var change_index:int = 0
 static var first_change:Array = [120.0, 0.5, 0.0, 0.0]
 static var last_change:Array = [120.0, 0.5, 0.0, 0.0]
@@ -23,7 +22,6 @@ static func parse_sm(path:String, diff:String):
 	first_change = [120.0, 0.5, 0.0, 0.0]
 	last_change = [120.0, 0.5, 0.0, 0.0]
 	cur_time = 0.0
-	last_beat = 0.0
 	quant_offset = 0.0
 	note_line_count = -1
 	
@@ -42,16 +40,18 @@ static func parse_line(line:String):
 				cur_type = line.substr(1, line.find(":") - 1)
 				parse_line(line)
 		"OFFSET":
-			quant_offset = float(line.substr(line.find(":"), line.find(";") - 1))
+			quant_offset = float(line.substr(line.find(":") + 1, line.find(";") - 1))
 			cur_type = "<NONE>"
 		"BPMS":
 			for bep in line.split(",", false):
+				if bep.begins_with(";"): continue
+				
 				var da_beat = float(bep.substr(0, bep.find("=") - 1))
 				var da_bpm = float(bep.substr(bep.find("=") + 1))
 				if bpm_changes.size() > 0:
-					cur_time += (60 / da_bpm) * (da_beat - last_beat)
-				bpm_changes.append([da_bpm, 60 / da_bpm, cur_time, da_beat])
-				last_beat = da_beat
+					cur_time += (60 / last_change[0]) * (da_beat - last_change[3])
+				last_change = [da_bpm, 60 / da_bpm, cur_time, da_beat]
+				bpm_changes.append(last_change)
 			
 			if line.ends_with(";"):
 				first_change = bpm_changes.pop_front()
@@ -81,25 +81,31 @@ static func parse_line(line:String):
 			if line[0] == "," or line[0] == ";":
 				var beat_inc:float = 4.0 / note_line_count;
 				for i in note_line_count:
+					for b in range(change_index, bpm_changes.size()):
+						if cur_time + (last_change[1] * beat_inc) >= bpm_changes[b][2]:
+							change_index = b
+							last_change = bpm_changes[b]
+					
 					for l in 4:
 						match(queued_note_lines[i][l]):
 							"1":
-								cur_chart.notes.append(Chart.ChartNote.new(cur_time + quant_offset, l, 0.0, last_change[1], last_change[2]))
+								var new_note = Chart.ChartNote.new(cur_time - quant_offset, l, 0.0, last_change[1], last_change[2])
+								cur_chart.notes.append(new_note)
 							"2":
-								queued_holds[l] = Chart.ChartNote.new(cur_time + quant_offset, l, 0.0, last_change[1], last_change[2])
-								cur_chart.notes.append(queued_holds[l])
+								var new_note = Chart.ChartNote.new(cur_time - quant_offset, l, 0.0, last_change[1], last_change[2])
+								queued_holds[l] = new_note
+								cur_chart.notes.append(new_note)
 							"3":
 								if queued_holds[l] != null:
-									queued_holds[l].length = (cur_time - queued_holds[l].time)
+									queued_holds[l].length = ((cur_time - quant_offset) - queued_holds[l].time)
 									queued_holds[l] = null
-								
+									
 					cur_time += last_change[1] * beat_inc
-					for b in range(change_index, bpm_changes.size()):
-						if bpm_changes[b][2] >= cur_time:
-							last_change = bpm_changes[b]
+
 				queued_note_lines = []
 				note_line_count = 0
 				if line[0] == ";":
+					cur_chart.notes.sort_custom(func(a, b): return a.time < b.time)
 					charts[cur_chart.extra_data["SM_DiffType"]] = cur_chart
 					cur_chart = null
 					note_line_count = -1

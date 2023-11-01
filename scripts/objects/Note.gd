@@ -35,8 +35,8 @@ var crochet:float = 0.5
 var last_change:float = 0.0
 
 func resize_sustain(length:float, speed:float):
-	hold_rect.size.y = 45 * (length * speed * 15)
-	hold_rect.position.y = -hold_rect.size.y
+	hold_rect.size.y = abs(45 * (length * speed * 15))
+	hold_rect.rotation_degrees = 180.0 if speed > 0.0 else 0.0
 
 func _ready():
 	var mes_time = crochet * 4

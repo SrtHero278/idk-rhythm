@@ -19,12 +19,12 @@ func _process(delta):
 	var cur_change = [bpm, crochet, 0.0, 0.0]
 	
 	for change in bpm_changes:
-		if change[2] - quant_offset >= cur_pos:
+		if cur_pos + quant_offset >= change[2]:
 			cur_change = change
 			
 	bpm = cur_change[0]
 	crochet = cur_change[1]
-	float_beat = cur_change[3] + (cur_pos - cur_change[2] - quant_offset) / crochet
+	float_beat = cur_change[3] + (cur_pos - cur_change[2] + quant_offset) / crochet
 	cur_beat = floori(float_beat)
 	
 	if cur_beat > old_beat:

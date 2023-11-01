@@ -22,6 +22,7 @@ var passed_notes:int = 0
 func _ready():
 	Conductor.bpm = chart.bpm
 	Conductor.crochet = 60 / chart.bpm
+	Conductor.bpm_changes = chart.bpm_changes
 	Conductor.quant_offset = chart.song_offset
 
 	Conductor.cur_pos = -Conductor.crochet

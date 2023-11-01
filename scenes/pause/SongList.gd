@@ -11,7 +11,9 @@ var stepmania_list:Dictionary = {}
 @onready var folders:PackedStringArray = DirAccess.open("res://assets/songs").get_directories()
 
 func _ready():
-	WorkerThreadPool.add_group_task(load_song, folders.size())
+	for i in folders.size():
+		load_song(i)
+	#WorkerThreadPool.add_group_task(load_song, folders.size()) this was causing some issues. not a big priority bc the loading is already fast.
 	wait_txt.queue_free()
 
 func load_song(index:int):
