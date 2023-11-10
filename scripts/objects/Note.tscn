@@ -23,6 +23,7 @@ pivot_offset = Vector2(75, 0)
 [node name="Hold" type="Control" parent="HoldRect"]
 clip_contents = true
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_bottom = -75.0

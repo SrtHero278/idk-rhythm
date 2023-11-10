@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SongMeta" load_steps=2 format=3 uid="uid://bttg51hhy6hl"]
+
+[ext_resource type="Script" path="res://scripts/resources/SongMeta.gd" id="1_x5xo6"]
+
+[resource]
+script = ExtResource("1_x5xo6")
+display_name = "MC MENTAL @ HIS BEST"
+difficulties = ["<STEPMANIA>"]

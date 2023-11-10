@@ -65,8 +65,16 @@ static func parse_fnf(path:String, _diff):
 			chart.bpm_changes.append([cur_bpm, cur_crochet, cur_time, cur_beat])
 			
 		for note in sec.sectionNotes:
-			if note[1] >= 4: continue
-			chart.notes.append(ChartNote.new(note[0] * 0.001, note[1], note[2] * 0.001, cur_crochet, last_time))
+			var dir:int = note[1]
+			
+			var add_note = true # option was none of the below, we give all of em.
+			match (Config.get_opt("fnf_parse", 0)):
+				0: add_note = dir < 4 # Camera Target
+				1: add_note = (dir < 4) == sec.mustHitSection # Player
+				2: add_note = not ((dir < 4) == sec.mustHitSection) # Opponent
+			
+			if dir < 0 or not add_note: continue
+			chart.notes.append(ChartNote.new(note[0] * 0.001, dir % 4, note[2] * 0.001, cur_crochet, last_time))
 			
 		var sec_beats = sec.lengthInSteps * 0.25 if (not "sectionBeats" in sec) else sec.sectionBeats # PSYCH ENGIN-
 		cur_time += cur_crochet * sec_beats
@@ -91,3 +99,31 @@ static func get_tracks(song:String):
 				tracks.append(music)
 				
 	return tracks;
+
+static func get_scripts(song:String):
+	var scripts:Array[Node] = []
+	
+	var script_path = "res://assets/songs/%s/scripts" % song
+	if not DirAccess.dir_exists_absolute(script_path):
+		return scripts
+	var dir = DirAccess.open(script_path)
+	script_path += "/"
+	
+	var found:Array[String] = []
+	for file in dir.get_files():
+		file = file.replace(".remap", "").replace(".gdc", ".gd")
+		var ext = file.get_extension()
+		var basename = file.get_basename()
+
+		if ext == "gd" and found.has(basename + ".tscn"):
+			continue
+		if ext == "tscn" and found.has(basename + ".gd"):
+			found[found.find(basename + ".gd")] = file
+			continue
+		found.append(file)
+		
+	for file in found:
+		var script = load(script_path + file).new() if file.get_extension() == "gd" else load(script_path + file).instantiate()
+		scripts.append(script)
+		
+	return scripts

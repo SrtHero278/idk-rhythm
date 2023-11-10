@@ -110,7 +110,7 @@ static func parse_line(line:String):
 					cur_chart = null
 					note_line_count = -1
 					cur_type = "<NONE>"
-			else:
+			elif line.dedent() != "":
 				queued_note_lines.append(line)
 				note_line_count += 1
 		_:

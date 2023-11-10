@@ -4,10 +4,6 @@ extends Panel
 @onready var scroll_speed = $Container/VBoxContainer/ScrollSpeed
 @onready var v_box_container = $Container/VBoxContainer
 
-func _ready():
-	scroll_speed.value = Config.get_opt("scroll", 2.5)
-	scroll_check.text = "Force Scroll Speed (%0.02f)" % [scroll_speed.value]
-
 func _exit_tree():
 	for child in v_box_container.get_children():
 		if child is KeybindOpt:
@@ -21,7 +17,3 @@ func _exit_tree():
 				InputMap.action_add_event(child.option_name, event)
 			
 	Config.save()
-
-func _scroll_changed(value):
-	Config.set_opt("scroll", value)
-	scroll_check.text = "Force Scroll Speed (%0.02f)" % [value]

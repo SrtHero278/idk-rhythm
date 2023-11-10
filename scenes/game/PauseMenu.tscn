@@ -98,6 +98,17 @@ layout_mode = 1
 visible = false
 layout_mode = 1
 
+[node name="QuickNote" type="Label" parent="."]
+layout_mode = 0
+offset_left = 930.0
+offset_top = 685.0
+offset_right = 1274.0
+offset_bottom = 719.0
+theme_override_font_sizes/font_size = 10
+text = "If any composers want their song removed from the official song list,
+Please contact me (@SrtPro278) and I'll have it removed as fast as I can,"
+horizontal_alignment = 2
+
 [connection signal="pressed" from="Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Songs" to="." method="_on_songs_pressed"]
 [connection signal="pressed" from="Options" to="." method="_on_options_pressed"]

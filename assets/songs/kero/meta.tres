@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_d6h50")
 display_name = "Kero V2"
-difficulties = ["Flipnote"]
+difficulties = ["Flipnote", "Swordcube's Chart"]

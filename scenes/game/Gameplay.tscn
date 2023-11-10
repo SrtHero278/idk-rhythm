@@ -15,25 +15,29 @@ border_width_right = 5
 border_color = Color(0, 0.8, 0.8, 1)
 
 [node name="Gameplay" type="Node2D"]
+position = Vector2(640, 360)
 script = ExtResource("1_1vbvm")
 ms_gradient = SubResource("Gradient_kpyja")
 
 [node name="Panel" type="Panel" parent="."]
-offset_left = 420.0
-offset_right = 860.0
-offset_bottom = 720.0
+offset_left = -220.0
+offset_top = -360.0
+offset_right = 220.0
+offset_bottom = 360.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_col26")
 
 [node name="StrumLine" parent="." instance=ExtResource("1_om2o8")]
-position = Vector2(640, 650)
+position = Vector2(0, 290)
 
 [node name="Tracks" type="Node" parent="."]
 
+[node name="Scripts" type="Node" parent="."]
+
 [node name="HitInfo" type="Label" parent="."]
-offset_left = 425.0
-offset_top = 311.0
-offset_right = 855.0
-offset_bottom = 385.0
+offset_left = -215.0
+offset_top = -49.0
+offset_right = 215.0
+offset_bottom = 25.0
 pivot_offset = Vector2(215, 37)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 24
@@ -41,7 +45,7 @@ text = "Get Ready!"
 horizontal_alignment = 1
 
 [node name="AnchorWorkaround" type="Node2D" parent="."]
-position = Vector2(5, 716)
+position = Vector2(-635, 356)
 
 [node name="ScoreInfo" type="Label" parent="AnchorWorkaround"]
 anchors_preset = 2

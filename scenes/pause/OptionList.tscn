@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://omd8fakcrcu8"]
+[gd_scene load_steps=7 format=3 uid="uid://omd8fakcrcu8"]
 
 [ext_resource type="Script" path="res://scenes/pause/OptionList.gd" id="1_qh5r0"]
+[ext_resource type="Script" path="res://scripts/objects/options/ListOpt.gd" id="2_egmcr"]
 [ext_resource type="Script" path="res://scripts/objects/options/CheckboxOpt.gd" id="2_hqf7u"]
 [ext_resource type="Script" path="res://scripts/objects/options/KeybindOpt.gd" id="2_up7uo"]
+[ext_resource type="Script" path="res://scripts/objects/options/SliderOpt.gd" id="3_wky01"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lg4w5"]
 bg_color = Color(0.160784, 0.160784, 0.160784, 1)
@@ -47,6 +49,25 @@ theme_override_font_sizes/font_size = 32
 text = "Gameplay"
 horizontal_alignment = 1
 
+[node name="ParseLabel" type="Label" parent="Container/VBoxContainer"]
+layout_mode = 2
+focus_mode = 1
+text = "FNF Parsing Style"
+
+[node name="FNFParse" type="OptionButton" parent="Container/VBoxContainer"]
+layout_mode = 2
+item_count = 4
+selected = 0
+popup/item_0/text = "Camera Target's Notes"
+popup/item_0/id = 0
+popup/item_1/text = "Player's Notes"
+popup/item_1/id = 1
+popup/item_2/text = "Opponent's Notes"
+popup/item_2/id = 2
+popup/item_3/text = "gimme all of em."
+popup/item_3/id = 3
+script = ExtResource("2_egmcr")
+
 [node name="HSeparator2" type="HSeparator" parent="Container/VBoxContainer"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
@@ -54,17 +75,35 @@ size_flags_stretch_ratio = 0.0
 [node name="ScrollCheck" type="CheckButton" parent="Container/VBoxContainer"]
 layout_mode = 2
 focus_mode = 1
-text = "Force Scroll Speed (1.00)"
+text = "Force Scroll Speed ($VALUE)"
 script = ExtResource("2_hqf7u")
 option_name = "force_scroll"
 
-[node name="ScrollSpeed" type="HSlider" parent="Container/VBoxContainer"]
+[node name="ScrollSpeed" type="HSlider" parent="Container/VBoxContainer" node_paths=PackedStringArray("label")]
 layout_mode = 2
 focus_mode = 1
 min_value = 1.0
 max_value = 7.0
 step = 0.25
 value = 1.0
+script = ExtResource("3_wky01")
+label = NodePath("../ScrollCheck")
+
+[node name="TiltLabel" type="Label" parent="Container/VBoxContainer"]
+layout_mode = 2
+focus_mode = 1
+text = "Combo Tilt Intensity ($VALUE)"
+
+[node name="ComboTilt" type="HSlider" parent="Container/VBoxContainer" node_paths=PackedStringArray("label")]
+layout_mode = 2
+focus_mode = 1
+max_value = 2.0
+step = 0.25
+value = 1.0
+script = ExtResource("3_wky01")
+label = NodePath("../TiltLabel")
+option_name = "combo_tilt"
+default_value = 1.0
 
 [node name="Keybinds" type="Label" parent="Container/VBoxContainer"]
 layout_mode = 2
@@ -105,5 +144,3 @@ text = "Right Keybinds: "
 script = ExtResource("2_up7uo")
 option_name = "note_right"
 default_value = Array[String](["Kp 6", "Right"])
-
-[connection signal="value_changed" from="Container/VBoxContainer/ScrollSpeed" to="." method="_scroll_changed"]

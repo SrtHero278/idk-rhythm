@@ -1,4 +1,4 @@
-extends Node2D
+class_name StrumLine extends Node2D
 
 @onready var notes = $Notes
 @onready var held_notes = $HeldNotes
@@ -16,6 +16,7 @@ var speed:float = 2.7:
 var actions:Array[String] = ["note_left", "note_down", "note_up", "note_right"]
 
 var strums:Array[Sprite2D]
+var mods:StrumMods
 
 func make_note(note):
 	var new_note = temp_note.duplicate()
@@ -25,22 +26,20 @@ func make_note(note):
 	new_note.last_change = note.last_change - Gameplay.chart.song_offset
 	new_note.sustain_length = note.length
 	notes.add_child(new_note)
-	new_note.position.x = get_child(note.lane).position.x
-	new_note.note.rotation = get_child(note.lane).rotation
 	new_note.resize_sustain(note.length, speed)
 
 func _ready():
 	for child in get_children():
 		if child is Sprite2D:
 			strums.push_back(child)
+	mods = StrumMods.new(self)
 
 func _process(delta):
-	for strum in strums:
-		strum.modulate.v = lerpf(strum.modulate.v, 1, delta * 7.5)
+	mods.position_strums(delta)
 	
 	for note in notes.get_children():
 		note = note as Note
-		note.position.y = strums[note.lane_id].position.y + speed * 450 * (Conductor.cur_pos - note.hit_time)
+		mods.position_note(note)
 		
 		if note.hit_time - Conductor.cur_pos < -hit_window:
 			note_miss.emit(note)
@@ -50,6 +49,7 @@ func _process(delta):
 	for note in held_notes.get_children():
 		note = note as Note
 		
+		note.position = strums[note.lane_id].position
 		note.note.modulate.a = sin_mult
 		
 		note.sustain_length -= delta
@@ -85,7 +85,6 @@ func press(index:int):
 				held_notes.add_child(note)
 				note.sustain_length += note.hit_time - Conductor.cur_pos
 				note.resize_sustain(note.sustain_length, speed)
-				note.position.y = 0
 			break
 	
 func release(index:int):

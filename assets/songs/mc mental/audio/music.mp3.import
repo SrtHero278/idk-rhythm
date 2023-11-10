@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bgghag0fd4mh5"
+path="res://.godot/imported/music.mp3-f516567242ed2a68932682425e4ea360.mp3str"
+
+[deps]
+
+source_file="res://assets/songs/mc mental/audio/music.mp3"
+dest_files=["res://.godot/imported/music.mp3-f516567242ed2a68932682425e4ea360.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
