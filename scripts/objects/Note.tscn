@@ -20,25 +20,17 @@ offset_right = 75.0
 grow_horizontal = 2
 pivot_offset = Vector2(75, 0)
 
-[node name="Hold" type="Control" parent="HoldRect"]
-clip_contents = true
+[node name="Hold" type="TextureRect" parent="HoldRect"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_bottom = -75.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="HoldTex" type="TextureRect" parent="HoldRect/Hold"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 pivot_offset = Vector2(75, 0)
 texture = ExtResource("2_u6q57")
+expand_mode = 1
 stretch_mode = 1
 
 [node name="Tail" type="TextureRect" parent="HoldRect"]
