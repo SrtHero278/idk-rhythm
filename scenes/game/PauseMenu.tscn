@@ -1,46 +1,40 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpnjxk8hbgtqd"]
+[gd_scene load_steps=10 format=3 uid="uid://dpnjxk8hbgtqd"]
 
 [ext_resource type="Script" path="res://scenes/game/PauseMenu.gd" id="1_876i5"]
 [ext_resource type="PackedScene" uid="uid://dlv0pyhvf7egt" path="res://scenes/pause/SongList.tscn" id="2_okn31"]
 [ext_resource type="PackedScene" uid="uid://omd8fakcrcu8" path="res://scenes/pause/OptionList.tscn" id="3_2bvij"]
+[ext_resource type="Texture2D" uid="uid://cqma72sol83bm" path="res://assets/images/pause/resume.png" id="4_3shfp"]
+[ext_resource type="Texture2D" uid="uid://crgxavioa3nh" path="res://assets/images/pause/songs.png" id="5_7o0kc"]
+[ext_resource type="Texture2D" uid="uid://btltvk8r3yhte" path="res://assets/images/pause/options.png" id="6_fsrcm"]
+[ext_resource type="Texture2D" uid="uid://djfu5wrus3q85" path="res://assets/images/pause/assets.png" id="7_23j8y"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ve880"]
-bg_color = Color(0.113725, 0.113725, 0.113725, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-shadow_color = Color(1, 1, 1, 0.6)
-shadow_size = 5
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_61kwg"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+anti_aliasing_size = 8.5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qoi7t"]
-bg_color = Color(0.207843, 0.207843, 0.207843, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-shadow_color = Color(1, 1, 1, 0.6)
-shadow_size = 5
+[sub_resource type="LabelSettings" id="LabelSettings_hwwt4"]
+line_spacing = 0.0
+font_size = 28
+shadow_size = 4
+shadow_color = Color(1, 1, 1, 1)
+shadow_offset = Vector2(0, 0)
 
 [node name="PauseMenu" type="ColorRect"]
 process_mode = 3
 offset_right = 1280.0
 offset_bottom = 720.0
+pivot_offset = Vector2(640, 360)
 color = Color(0, 0, 0, 0.501961)
 script = ExtResource("1_876i5")
 
 [node name="Icon" type="Line2D" parent="."]
 position = Vector2(1800, 200)
 rotation = 7.85398
-points = PackedVector2Array(-112, -125, -112, 125, 112, 0, -112, -125)
+points = PackedVector2Array(-112, -125, -112, -3.01892, -112, 125, 112, 0, -112, -125)
 default_color = Color(0.862745, 0.862745, 0.862745, 1)
 joint_mode = 2
 begin_cap_mode = 2
@@ -54,42 +48,6 @@ offset_right = 1060.5
 offset_bottom = 235.0
 theme_override_font_sizes/font_size = 48
 text = "Paused"
-
-[node name="Resume" type="Button" parent="."]
-layout_mode = 0
-offset_left = 850.0
-offset_top = 415.0
-offset_right = 1100.0
-offset_bottom = 473.0
-focus_mode = 1
-theme_override_font_sizes/font_size = 36
-theme_override_styles/normal = SubResource("StyleBoxFlat_ve880")
-theme_override_styles/hover = SubResource("StyleBoxFlat_qoi7t")
-text = "Resume"
-
-[node name="Songs" type="Button" parent="."]
-layout_mode = 0
-offset_left = 850.0
-offset_top = 495.0
-offset_right = 1100.0
-offset_bottom = 553.0
-focus_mode = 1
-theme_override_font_sizes/font_size = 36
-theme_override_styles/normal = SubResource("StyleBoxFlat_ve880")
-theme_override_styles/hover = SubResource("StyleBoxFlat_qoi7t")
-text = "Song List"
-
-[node name="Options" type="Button" parent="."]
-layout_mode = 0
-offset_left = 850.0
-offset_top = 575.0
-offset_right = 1100.0
-offset_bottom = 633.0
-focus_mode = 1
-theme_override_font_sizes/font_size = 36
-theme_override_styles/normal = SubResource("StyleBoxFlat_ve880")
-theme_override_styles/hover = SubResource("StyleBoxFlat_qoi7t")
-text = "Options"
 
 [node name="SongList" parent="." instance=ExtResource("2_okn31")]
 layout_mode = 1
@@ -109,6 +67,55 @@ text = "If any composers want their song removed from the official song list,
 Please contact me (@SrtPro278) and I'll have it removed as fast as I can,"
 horizontal_alignment = 2
 
-[connection signal="pressed" from="Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="Songs" to="." method="_on_songs_pressed"]
-[connection signal="pressed" from="Options" to="." method="_on_options_pressed"]
+[node name="Options" type="Node2D" parent="."]
+position = Vector2(976, 538)
+
+[node name="Resume" type="TextureButton" parent="Options"]
+offset_left = -150.0
+offset_top = -37.5
+offset_right = -75.0
+offset_bottom = 37.5
+pivot_offset = Vector2(37.5, 37.5)
+focus_mode = 1
+texture_normal = ExtResource("4_3shfp")
+
+[node name="Songs" type="TextureButton" parent="Options"]
+offset_left = -75.0
+offset_top = -37.5
+offset_bottom = 37.5
+pivot_offset = Vector2(37.5, 37.5)
+focus_mode = 1
+texture_normal = ExtResource("5_7o0kc")
+
+[node name="Options" type="TextureButton" parent="Options"]
+offset_top = -37.5
+offset_right = 75.0
+offset_bottom = 37.5
+pivot_offset = Vector2(37.5, 37.5)
+focus_mode = 1
+texture_normal = ExtResource("6_fsrcm")
+
+[node name="Assets" type="TextureButton" parent="Options"]
+offset_left = 75.0
+offset_top = -37.5
+offset_right = 150.0
+offset_bottom = 37.5
+pivot_offset = Vector2(37.5, 37.5)
+focus_mode = 1
+texture_normal = ExtResource("7_23j8y")
+
+[node name="OptionLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 826.0
+offset_top = 450.0
+offset_right = 1126.0
+offset_bottom = 495.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_61kwg")
+text = "Select an Option"
+label_settings = SubResource("LabelSettings_hwwt4")
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Options/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Options/Songs" to="." method="_on_songs_pressed"]
+[connection signal="pressed" from="Options/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Options/Assets" to="." method="_on_assets_pressed"]

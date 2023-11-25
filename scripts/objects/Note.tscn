@@ -1,9 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgvwq55d1jn1a"]
+[gd_scene load_steps=6 format=3 uid="uid://bgvwq55d1jn1a"]
 
-[ext_resource type="Texture2D" uid="uid://buvfn2on5ep6l" path="res://assets/images/game/arrow.png" id="1_5ojbt"]
 [ext_resource type="Script" path="res://scripts/objects/Note.gd" id="2_tjs0d"]
-[ext_resource type="Texture2D" uid="uid://xsivwrfsr4a0" path="res://assets/images/game/hold.png" id="2_u6q57"]
-[ext_resource type="Texture2D" uid="uid://c0mndi2dfxsuq" path="res://assets/images/game/tail.png" id="3_lptxd"]
+[ext_resource type="Script" path="res://scripts/resources/FileTexture.gd" id="4_0ygu6"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_ekpqs"]
+script = ExtResource("4_0ygu6")
+file_path = "assets/images/game/hold.png"
+
+[sub_resource type="ImageTexture" id="ImageTexture_mjloy"]
+script = ExtResource("4_0ygu6")
+file_path = "assets/images/game/tail.png"
+
+[sub_resource type="ImageTexture" id="ImageTexture_4iv62"]
+script = ExtResource("4_0ygu6")
+file_path = "assets/images/game/arrow.png"
 
 [node name="Note" type="Node2D"]
 scale = Vector2(0.7, 0.7)
@@ -20,25 +30,17 @@ offset_right = 75.0
 grow_horizontal = 2
 pivot_offset = Vector2(75, 0)
 
-[node name="Hold" type="Control" parent="HoldRect"]
-clip_contents = true
+[node name="Hold" type="TextureRect" parent="HoldRect"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_bottom = -75.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="HoldTex" type="TextureRect" parent="HoldRect/Hold"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 pivot_offset = Vector2(75, 0)
-texture = ExtResource("2_u6q57")
+texture = SubResource("ImageTexture_ekpqs")
+expand_mode = 1
 stretch_mode = 1
 
 [node name="Tail" type="TextureRect" parent="HoldRect"]
@@ -54,8 +56,8 @@ offset_right = 75.0
 grow_horizontal = 2
 grow_vertical = 0
 pivot_offset = Vector2(75, 0)
-texture = ExtResource("3_lptxd")
+texture = SubResource("ImageTexture_mjloy")
 stretch_mode = 2
 
 [node name="Note" type="Sprite2D" parent="."]
-texture = ExtResource("1_5ojbt")
+texture = SubResource("ImageTexture_4iv62")

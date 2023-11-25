@@ -56,6 +56,7 @@ text = "FNF Parsing Style"
 
 [node name="FNFParse" type="OptionButton" parent="Container/VBoxContainer"]
 layout_mode = 2
+focus_mode = 1
 item_count = 4
 selected = 0
 popup/item_0/text = "Camera Target's Notes"

@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://5kgq8m1k5qkm"]
+[gd_scene load_steps=4 format=3 uid="uid://5kgq8m1k5qkm"]
 
-[ext_resource type="Texture2D" uid="uid://buvfn2on5ep6l" path="res://assets/images/game/arrow.png" id="1_cfbe7"]
 [ext_resource type="Script" path="res://scripts/objects/StrumLine.gd" id="1_cvhsy"]
+[ext_resource type="Script" path="res://scripts/resources/FileTexture.gd" id="2_fcp8q"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_hdgyh"]
+script = ExtResource("2_fcp8q")
+file_path = "assets/images/game/arrow.png"
 
 [node name="StrumLine" type="Node2D"]
 script = ExtResource("1_cvhsy")
@@ -9,25 +13,25 @@ script = ExtResource("1_cvhsy")
 [node name="Left" type="Sprite2D" parent="."]
 position = Vector2(-160, 0)
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("1_cfbe7")
+texture = SubResource("ImageTexture_hdgyh")
 
 [node name="Down" type="Sprite2D" parent="."]
 position = Vector2(-54, 0)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("1_cfbe7")
+texture = SubResource("ImageTexture_hdgyh")
 
 [node name="Up" type="Sprite2D" parent="."]
 position = Vector2(54, 0)
 rotation = 1.5708
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("1_cfbe7")
+texture = SubResource("ImageTexture_hdgyh")
 
 [node name="Right" type="Sprite2D" parent="."]
 position = Vector2(160, 0)
 rotation = 3.14159
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("1_cfbe7")
+texture = SubResource("ImageTexture_hdgyh")
 
 [node name="Notes" type="CanvasGroup" parent="."]
 

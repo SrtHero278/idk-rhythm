@@ -25,8 +25,7 @@ static func parse_sm(path:String, diff:String):
 	quant_offset = 0.0
 	note_line_count = -1
 	
-	var file = FileAccess.open(path, FileAccess.READ)
-	var text = file.get_as_text()
+	var text = Assets.get_text(path)
 
 	for line in text.split("\n", false):
 		parse_line(line)

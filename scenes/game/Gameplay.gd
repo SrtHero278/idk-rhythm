@@ -87,6 +87,7 @@ func _process(delta):
 		get_tree().paused = true
 		var menu = load("res://scenes/game/PauseMenu.tscn").instantiate()
 		menu.position = -position
+		menu.rotation = -rotation
 		add_child(menu)
 
 func _note_hit(note):

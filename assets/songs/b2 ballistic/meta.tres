@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="SongMeta" load_steps=2 format=3 uid="uid://c0r47kwpg3p11"]
-
-[ext_resource type="Script" path="res://scripts/resources/SongMeta.gd" id="1_d6h50"]
-
-[resource]
-script = ExtResource("1_d6h50")
-display_name = "Ballistic B2"
-difficulties = ["Get Real","Hard"]
