@@ -64,3 +64,6 @@ func _on_songs_pressed():
 func _on_options_pressed():
 	song_list.visible = false
 	option_list.visible = true
+
+func _on_assets_pressed():
+	add_child(load("res://scenes/pause/AssetSelection.tscn").instantiate())

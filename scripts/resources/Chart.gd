@@ -31,11 +31,11 @@ static func parse_chart(song:String, diff:String):
 	var da_chart = null
 	
 	var file_formats = [
-		["res://assets/songs/%s/%s.json" % [song, diff.to_lower()], 	Chart.parse_fnf],
-		["res://assets/songs/%s/%s.sm" % [song, song], 					SmParser.parse_sm]
+		["assets/songs/%s/%s.json" % [song, diff.to_lower()], 	Chart.parse_fnf],
+		["assets/songs/%s/%s.sm" % [song, song], 				SmParser.parse_sm]
 	]
 	for path in file_formats:
-		if ResourceLoader.exists(path[0]):
+		if Assets.file_exists(path[0]):
 			da_chart = path[1].call(path[0], diff)
 	
 	if da_chart == null:
@@ -44,7 +44,7 @@ static func parse_chart(song:String, diff:String):
 	return da_chart
 
 static func parse_fnf(path:String, _diff):
-	var json = load(path).data.song
+	var json = JSON.parse_string(Assets.get_text(path)).song
 	var chart = Chart.new(json.bpm)
 	chart.speed = json.speed
 	
@@ -86,44 +86,64 @@ static func parse_fnf(path:String, _diff):
 static func get_tracks(song:String):
 	var tracks:Array[AudioStreamPlayer] = []
 	
-	#we do a little yoinking https://github.com/The-Coders-Den/NovaEngine-Godot-FNF/blob/main/scenes/gameplay/Gameplay.gd#L101-L114
-	var audio_path = "res://assets/songs/%s/audio" % song
-	var dir = DirAccess.open(audio_path)
+	var audio_path = "assets/songs/%s/audio" % song
+	var audio_files = Assets.get_files_at(audio_path)
 	audio_path += "/"
 	
-	for file in dir.get_files():
-		var music:AudioStreamPlayer = AudioStreamPlayer.new()
-		for f in ["ogg", "mp3", "wav"]:
-			if file.ends_with(f + ".import"):
-				music.stream = load(audio_path + file.replace(".import", ""))
-				tracks.append(music)
-				
+	var exts = ["ogg", "mp3"]
+	var added_files = []
+	for file in audio_files:
+		if file.ends_with(".import"): # to prevent duplicates caused by ".import" files
+			file = file.get_basename()
+		if added_files.has(file):
+			continue
+			
+		if exts.has(file.get_extension()):
+			var music:AudioStreamPlayer = AudioStreamPlayer.new()
+			music.stream = Assets.get_sound(audio_path + file)
+			tracks.append(music)
+			added_files.append(file)
+			
 	return tracks;
 
 static func get_scripts(song:String):
-	var scripts:Array[Node] = []
+	var scripts:Array[ScriptNode] = []
 	
-	var script_path = "res://assets/songs/%s/scripts" % song
-	if not DirAccess.dir_exists_absolute(script_path):
-		return scripts
-	var dir = DirAccess.open(script_path)
+	var script_path = "assets/songs/%s/scripts" % song
+	var script_files = Assets.get_files_at(script_path)
 	script_path += "/"
 	
-	var found:Array[String] = []
-	for file in dir.get_files():
-		file = file.replace(".remap", "").replace(".gdc", ".gd")
-		var ext = file.get_extension()
-		var basename = file.get_basename()
-
-		if ext == "gd" and found.has(basename + ".tscn"):
+	var added_files = []
+	for file in script_files:
+		if file.ends_with(".remap"): # to prevent duplicates caused by ".remap" files
+			file = file.get_basename()
+		if added_files.has(file):
 			continue
-		if ext == "tscn" and found.has(basename + ".gd"):
-			found[found.find(basename + ".gd")] = file
-			continue
-		found.append(file)
 		
-	for file in found:
-		var script = load(script_path + file).new() if file.get_extension() == "gd" else load(script_path + file).instantiate()
-		scripts.append(script)
+		var ext = file.get_extension()
+		if ext == "gd" or ext == "gdc":
+			var script = GDScript.new()
+			script.source_code = Assets.get_text(script_path + file)
+			script.reload()
+			scripts.append(script.new())
+			added_files.append(file)
+	
+	# commented this out bc this still has the code for loading tscn scripts (idk how to load tscn files locally rn)
+	#var found:Array[String] = []
+	#for file in dir.get_files():
+		#file = file.replace(".remap", "").replace(".gdc", ".gd")
+		#var ext = file.get_extension()
+		#var basename = file.get_basename()
+#
+		#if ext == "gd" and found.has(basename + ".tscn"):
+			#continue
+		#if ext == "tscn" and found.has(basename + ".gd"):
+			#found[found.find(basename + ".gd")] = file
+			#continue
+		#found.append(file)
+		#
+	#for file in found:
+		#var script = load(script_path + file).new() if file.get_extension() == "gd" else load(script_path + file).instantiate()
+		#scripts.append(script)
 		
 	return scripts

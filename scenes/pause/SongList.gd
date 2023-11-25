@@ -8,7 +8,7 @@ var cur_song:String
 var song_diffs:Dictionary = {}
 var stepmania_list:Dictionary = {}
 
-@onready var folders:PackedStringArray = DirAccess.open("res://assets/songs").get_directories()
+@onready var folders:PackedStringArray = Assets.get_directories_at("assets/songs")
 
 func _ready():
 	for i in folders.size():
@@ -18,9 +18,9 @@ func _ready():
 
 func load_song(index:int):
 	var folder:String = folders[index]
-	var meta_path = "res://assets/songs/%s/meta.tres" % folder
-	if not ResourceLoader.exists(meta_path): return
-	var meta:SongMeta = load(meta_path)
+	var meta_path = "assets/songs/%s/meta.json" % folder
+	if not Assets.file_exists(meta_path): return
+	var meta = JSON.parse_string(Assets.get_text(meta_path))
 	song_diffs[folder] = meta.difficulties
 
 	var funny_button = OptionButton.new()
@@ -55,7 +55,7 @@ func load_song(index:int):
 
 func add_diff(popup:PopupMenu, song:String, diff:String):
 	if diff == "<STEPMANIA>":
-		stepmania_list[song] = SmParser.parse_sm("res://assets/songs/%s/%s.sm" % [song, song], "<ALL>")
+		stepmania_list[song] = SmParser.parse_sm("assets/songs/%s/%s.sm" % [song, song], "<ALL>")
 		
 		var new_popup = PopupMenu.new()
 		for key in stepmania_list[song].keys():

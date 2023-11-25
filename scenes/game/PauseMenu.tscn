@@ -118,3 +118,4 @@ horizontal_alignment = 1
 [connection signal="pressed" from="Options/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Options/Songs" to="." method="_on_songs_pressed"]
 [connection signal="pressed" from="Options/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Options/Assets" to="." method="_on_assets_pressed"]
