@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://myjbi7hy01mj"
+path="res://.godot/imported/Inst.ogg-f209c9f0389dc4860d3e2297afb83bb1.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/songs/liminal starwave/audio/Inst.ogg"
+dest_files=["res://.godot/imported/Inst.ogg-f209c9f0389dc4860d3e2297afb83bb1.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

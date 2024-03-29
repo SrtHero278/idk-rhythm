@@ -1,7 +1,7 @@
 class_name FileTexture extends ImageTexture
 
 ## NOTE: THIS DOES NOT START WITH "res://"
-@export var file_path:String:
+@export_file var file_path:String:
 	get: return file_path
 	set(new_path):
 		file_path = new_path

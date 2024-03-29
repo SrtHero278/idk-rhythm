@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://dk4juj1owd7c0"
+path="res://.godot/imported/clock.png-3b322f64dc24388d75b2ffe93805c97b.image"
+
+[deps]
+
+source_file="res://assets/images/game/clock.png"
+dest_files=["res://.godot/imported/clock.png-3b322f64dc24388d75b2ffe93805c97b.image"]
+
+[params]
+

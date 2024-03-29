@@ -57,6 +57,7 @@ static func parse_fnf(path:String, _diff):
 	var cur_beat:float = 0.0
 	var last_time:float = 0.0
 	
+	var hit_times = [[], [], [], []]
 	for sec in json.notes:
 		if "changeBPM" in sec and sec.changeBPM:
 			cur_bpm = sec.bpm
@@ -73,7 +74,8 @@ static func parse_fnf(path:String, _diff):
 				1: add_note = (dir < 4) == sec.mustHitSection # Player
 				2: add_note = not ((dir < 4) == sec.mustHitSection) # Opponent
 			
-			if dir < 0 or not add_note: continue
+			if dir < 0 or not add_note or hit_times[dir % 4].has(roundf(note[0])): continue
+			hit_times[dir % 4].append(roundf(note[0]))
 			chart.notes.append(ChartNote.new(note[0] * 0.001, dir % 4, note[2] * 0.001, cur_crochet, last_time))
 			
 		var sec_beats = sec.lengthInSteps * 0.25 if (not "sectionBeats" in sec) else sec.sectionBeats # PSYCH ENGIN-

@@ -45,58 +45,6 @@ func center_strum():
 func rotate_strum():
 	strum_tween("rotation_degrees", game.strum_line.rotation_degrees + 90.0, Conductor.crochet * 0.45).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
-#func _process(_delta):
-#	if passed_beat < 1.5 && Conductor.float_beat >= 1.5:
-#		passed_beat = 1.5
-#		strum_tween("position:x", 320, Conductor.crochet * 0.25)
-#	if passed_beat < 16.75 && Conductor.float_beat >= 16.75:
-#		passed_beat = 16.75
-#		game.strum_line.scale = Vector2(1.2, 1.2)
-#		game.strum_line.speed = og_speed * 1.25
-#		strum_tween("speed", og_speed, Conductor.crochet * 0.45).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-#		strum_tween("scale", Vector2.ONE, Conductor.crochet * 0.45)
-#		strum_tween("mods:invert_percent", 0.0, Conductor.crochet * 0.45)
-#	if passed_beat < 17.5 && Conductor.float_beat >= 17.5:
-#		passed_beat = 17.5
-#		game.strum_line.scale = Vector2(1.2, 1.2)
-#		game.strum_line.speed = og_speed * 1.25
-#		strum_tween("speed", og_speed, Conductor.crochet * 0.45).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-#		strum_tween("scale", Vector2.ONE, Conductor.crochet * 0.45)
-#		strum_tween("mods:flip_percent", 1.0, Conductor.crochet * 0.45)
-#	if passed_beat < 37.5 && Conductor.float_beat >= 37.5:
-#		passed_beat = 37.5
-#		game.strum_line.mods.wavy = 30
-#		strum_tween("position:y", 220, Conductor.crochet * 6.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-#		strum_tween("speed", og_speed * -0.25, Conductor.crochet * 6.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-#	if passed_beat < 48.75 && Conductor.float_beat >= 48.75:
-#		passed_beat = 48.75
-#		game.strum_line.mods.wavy = 30
-#		strum_tween("position:y", -145, Conductor.crochet * 0.45).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-#		strum_tween("speed", og_speed * 0.5, Conductor.crochet * 0.45).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-#	if passed_beat < 49.5 && Conductor.float_beat >= 49.5:
-#		passed_beat = 49.5
-#		strum_tween("position:y", -145 * 0.75, Conductor.crochet * 0.45).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-#		strum_tween("speed", -og_speed * 0.5, Conductor.crochet * 0.45).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-#	if passed_beat < 53.5 && Conductor.float_beat >= 53.5:
-#		passed_beat = 53.5
-#		game.strum_line.mods.wavy = 30
-#		strum_tween("position:y", 220, Conductor.crochet * 6.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-#		strum_tween("speed", og_speed * -0.25, Conductor.crochet * 6.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-#	if passed_beat < 61.5 && Conductor.float_beat >= 61.5:
-#		passed_beat = 61.5
-#		game.strum_line.mods.wavy = 30
-#		strum_tween("position:y", 0, Conductor.crochet * 3.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-#		strum_tween("speed", og_speed * 0.5, Conductor.crochet * 3.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-#	if passed_beat < 64.75 && Conductor.float_beat >= 64.75:
-#		passed_beat = 64.75
-#		strum_tween("rotation_degrees", 180, Conductor.crochet * 0.45).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-#	if passed_beat < 65.5 && Conductor.float_beat >= 65.5:
-#		passed_beat = 65.5
-#		strum_tween("rotation_degrees", 270, Conductor.crochet * 0.45).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-#	if passed_beat < 66.25 && Conductor.float_beat >= 66.25:
-#		passed_beat = 66.25
-#		strum_tween("rotation_degrees", 360, Conductor.crochet * 0.45).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-
 func beat_hit(beat):
 	match beat:
 		0:

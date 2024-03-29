@@ -3,15 +3,15 @@
 [ext_resource type="Script" path="res://scripts/objects/Note.gd" id="2_tjs0d"]
 [ext_resource type="Script" path="res://scripts/resources/FileTexture.gd" id="4_0ygu6"]
 
-[sub_resource type="ImageTexture" id="ImageTexture_ekpqs"]
+[sub_resource type="ImageTexture" id="ImageTexture_w4aub"]
 script = ExtResource("4_0ygu6")
 file_path = "assets/images/game/hold.png"
 
-[sub_resource type="ImageTexture" id="ImageTexture_mjloy"]
+[sub_resource type="ImageTexture" id="ImageTexture_jgrct"]
 script = ExtResource("4_0ygu6")
 file_path = "assets/images/game/tail.png"
 
-[sub_resource type="ImageTexture" id="ImageTexture_4iv62"]
+[sub_resource type="ImageTexture" id="ImageTexture_msv0e"]
 script = ExtResource("4_0ygu6")
 file_path = "assets/images/game/arrow.png"
 
@@ -30,7 +30,7 @@ offset_right = 75.0
 grow_horizontal = 2
 pivot_offset = Vector2(75, 0)
 
-[node name="Hold" type="TextureRect" parent="HoldRect"]
+[node name="TextureRect" type="TextureRect" parent="HoldRect"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -38,8 +38,7 @@ anchor_bottom = 1.0
 offset_bottom = -75.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(75, 0)
-texture = SubResource("ImageTexture_ekpqs")
+texture = SubResource("ImageTexture_w4aub")
 expand_mode = 1
 stretch_mode = 1
 
@@ -56,8 +55,8 @@ offset_right = 75.0
 grow_horizontal = 2
 grow_vertical = 0
 pivot_offset = Vector2(75, 0)
-texture = SubResource("ImageTexture_mjloy")
+texture = SubResource("ImageTexture_jgrct")
 stretch_mode = 2
 
 [node name="Note" type="Sprite2D" parent="."]
-texture = SubResource("ImageTexture_4iv62")
+texture = SubResource("ImageTexture_msv0e")

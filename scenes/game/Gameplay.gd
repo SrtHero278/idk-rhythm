@@ -7,14 +7,21 @@ class_name Gameplay extends Node2D
 @onready var score_info = $AnchorWorkaround/ScoreInfo
 @onready var anchor_workaround = $AnchorWorkaround
 
+@onready var health_bar = $ColorRect/Health
+@onready var time_bar = $ColorRect/Time
+
 @export var ms_gradient:Gradient = Gradient.new()
+@export var hp_gradient:Gradient = Gradient.new()
 
 static var song_folder:String = "mismatch"
 static var chart:Chart
+var first_track:AudioStreamPlayer
 var combo:int = 0
 
 var score:int = 0
 var misses:int = 0
+var health:float = 0.5
+var length:float = 0
 
 var ms_sum:float = 0
 var ms_calc:float = 0
@@ -24,6 +31,7 @@ var queued_index:int = 0
 var event_index:int = 0
 
 var events:Array[Array] = []
+@onready var strumlines:Array[StrumLine] = [strum_line]
 
 func _ready():
 	Conductor.bpm = chart.bpm
@@ -35,7 +43,8 @@ func _ready():
 	Conductor.float_beat = 0.0
 	Conductor.cur_beat = 0
 	
-	strum_line.speed = Config.get_opt("scroll", 2.5) if Config.get_opt("force_scroll", false) else chart.speed
+	for line in strumlines:
+		line.speed = Config.get_opt("scroll", 2.5) if Config.get_opt("force_scroll", false) else chart.speed
 	for script in Chart.get_scripts(song_folder):
 		script.game = self
 		scripts.add_child(script)
@@ -57,12 +66,15 @@ func _ready():
 	for track in Chart.get_tracks(song_folder):
 		tracks.add_child(track)
 		track.play()
+	first_track = tracks.get_child(0)
+	length = first_track.stream.get_length()
 		
 	Conductor.beat_hit.connect(beat_hit)
+	call_scripts("song_start", [])
 
 func beat_hit(beat):
 	call_scripts("beat_hit", [beat])
-	if abs(tracks.get_child(0).get_playback_position() - Conductor.cur_pos) >= 0.02:
+	if abs(first_track.get_playback_position() - Conductor.cur_pos) >= 0.02:
 		for track in tracks.get_children():
 			track.seek(Conductor.cur_pos)
 
@@ -80,15 +92,28 @@ func _process(delta):
 	hit_info.modulate.a -= delta * 3
 	
 	while chart.notes.size() > queued_index and chart.notes[queued_index].time - Conductor.cur_pos < 2:
-		strum_line.make_note(chart.notes[queued_index])
+		for line in strumlines:
+			line.make_note(chart.notes[queued_index])
 		queued_index += 1
 		
 	if Input.is_action_just_pressed("ui_text_submit"):
 		get_tree().paused = true
+		
+		if scale.x == 0:
+			scale.x = 0.01
+		if scale.y == 0:
+			scale.y = 0.01
+			
 		var menu = load("res://scenes/game/PauseMenu.tscn").instantiate()
 		menu.position = -position
 		menu.rotation = -rotation
+		menu.scale /= scale
 		add_child(menu)
+		
+	if first_track != null:
+		time_bar.value = Conductor.cur_pos / length
+		health_bar.value = lerpf(health_bar.value, health, delta * 3)
+		health_bar.tint_progress = hp_gradient.sample(health_bar.value)
 
 func _note_hit(note):
 	combo += 1
@@ -106,6 +131,7 @@ func _note_hit(note):
 	ms *= 0.001
 	var score_mult = 1 - abs(ms / strum_line.hit_window)
 	score += 350 * score_mult + floori(5 * (combo / 20.0))
+	health = minf(1.0, health + 0.015 * (score_mult - 0.25))
 	update_score()
 	
 	hit_info.modulate = ms_gradient.sample(score_mult)
@@ -121,6 +147,7 @@ func _note_miss(note):
 	hit_info.text = "oops..."
 	hit_info.rotation_degrees = (10 if hit_info.rotation < 0 else -10) * Config.get_opt("combo_tilt", 1.0)
 	hit_info.modulate = Color(1, 0.15, 0.15, 1.5)
+	health = maxf(0.0, health - 0.02)
 	update_score()
 	
 	call_scripts("note_miss", [note])

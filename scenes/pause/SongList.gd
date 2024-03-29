@@ -73,10 +73,14 @@ func select_sm(id:int):
 	get_tree().paused = false
 	Gameplay.chart = stepmania_list[cur_song][stepmania_list[cur_song].keys()[id]]
 	Gameplay.song_folder = cur_song
+	if get_tree().current_scene != get_parent():
+		Conductor.beat_hit.disconnect($"../../".beat_hit) # crash safety
 	get_tree().change_scene_to_file("res://scenes/game/Gameplay.tscn")
 
 func select_song(id:int):
 	get_tree().paused = false
 	Gameplay.chart = Chart.parse_chart(cur_song, song_diffs[cur_song][id - 1])
 	Gameplay.song_folder = cur_song
+	if get_tree().current_scene != get_parent():
+		Conductor.beat_hit.disconnect($"../../".beat_hit)
 	get_tree().change_scene_to_file("res://scenes/game/Gameplay.tscn")
