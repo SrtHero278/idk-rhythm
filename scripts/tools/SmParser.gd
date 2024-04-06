@@ -52,7 +52,7 @@ static func parse_line(line:String):
 				last_change = [da_bpm, 60 / da_bpm, cur_time, da_beat]
 				bpm_changes.append(last_change)
 			
-			if line.ends_with(";"):
+			if line.contains(";"):
 				first_change = bpm_changes.pop_front()
 				cur_bpm = first_change[0]
 				cur_type = "<NONE>"
